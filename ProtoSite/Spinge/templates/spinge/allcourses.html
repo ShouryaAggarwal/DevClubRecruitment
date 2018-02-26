@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+
+
+<div class="jumbotron">
+	<h1 align='center'>List Of All Courses!</h1>
+</div>
+
+
+<div class='col-md-12'>
+{% if courses %}
+	{% for course in courses %}
+	<h3 class="page-header">
+        {% if user == course.owner %}
+		<a href="{% url 'spinge:addcourse' %}?id={{course.id}}">{{ course.name }}</a>
+	    {% else %}
+        {{ course.name }}
+        {% endif %}
+    </h3>
+    <br/>
+    {{course.owner}}
+    <br/>
+        <a href="{% url 'spinge:course_detail' course.id %}"> Details </a>
+    <br/>
+    {% endfor %}
+{% else %}
+	<div class='alert alert-warning' align='center'>
+		<h3>No Courses are Floated Yet!</h3>
+	</div>
+{% endif %}
+</div>
+
+
+{% endblock body %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+
+
+<div class="jumbotron">
+	<h1 align='center'>Your Home!</h1>
+</div>
+
+
+<div class='col-md-12'>
+	<h2> About You</h2>
+	<ul>
+		<li> First Name : {{user.first_name}}</li>
+		<li> Last Name : {{user.last_name}}</li>
+		<li> UserName : {{user.username}}</li>
+		<li> Bio : {{user.profile.bio}}</li>
+		{% if user.profile.is_professor %}
+		<li> Educational Status : Professor</li>
+		{% elif user.profile.is_student %}
+		<li> Educational Status : Student</li>
+		{% endif %}
+	</ul>
+</div>
+
+
+{% endblock body %}

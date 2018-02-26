@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+
+<link rel="stylesheet" href="{% static 'AppSite/private.css' %}"/>
+
+<div class="jumbotron">
+	<h1 align='center'>Join SPINGE Now !!</h1>
+</div>
+
+{% block content %}
+  <h2>Sign up</h2>
+  <form method="post" class="formext">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+    <button type="submit" class='btn btn-primary btn-lg btn-block'>Sign up</button>
+  </form>
+
+{% endblock %}
+
+{% endblock body %}
