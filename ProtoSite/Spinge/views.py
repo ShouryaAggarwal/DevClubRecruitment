@@ -137,17 +137,23 @@ def notes_view(request, course_id):
         for enroll in enroll_set:
             limit = enroll.enrollmentTime
         notes = Note.objects.filter(timestamp__range=(limit, datetime.now()), course=course)
+
+    notes = notes.order_by('-timestamp')
     return render(request, 'spinge/notes_view.html', {'course': course, 'notes': notes, 'check': check})
 
 
 @user_passes_test(student_only, login_url="/")
 def join_course(request, course_id):
+    user = request.user
+    check = 0
     course = get_object_or_404(Course, pk=course_id)
+    if Course.objects.filter(students=user, pk=course_id).exists():
+        check = 1
     if request.user == course.owner:
-        return render(request, 'spinge/course_detail.html', {'course': course,
+        return render(request, 'spinge/course_detail.html', {'course': course, 'user': user, 'check': check,
                                                              'error_message': "You can't join your own course."})
     elif Course.objects.filter(students=request.user, pk=course_id).exists():
-        return render(request, 'spinge/course_detail.html', {'course': course,
+        return render(request, 'spinge/course_detail.html', {'course': course, 'user': user, 'check': check,
                                                              'error_message': "You have already joined this course once."})
     else:
         course.students.add(request.user)
@@ -155,5 +161,5 @@ def join_course(request, course_id):
         e = Enrollment(course=course, student=request.user)
         e.save()
         messages.add_message(request, messages.INFO, 'Course Joined Successfully!')
-        return render(request, 'spinge/course_detail.html', {'course': course,})
+        return render(request, 'spinge/course_detail.html', {'course': course, 'user': user, 'check': check})
 

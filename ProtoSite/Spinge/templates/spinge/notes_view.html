@@ -21,7 +21,8 @@
 		{{note.label}}
 	</h3>
     {% endif %}
-	{{note.body|linebreaks}}
+	<p>{{note.body|linebreaks}}</p>
+	<p align="right">{{note.timestamp}}</p>
 	{% endfor %}
 {% else %}
 	<div class='alert alert-warning' align='center'>

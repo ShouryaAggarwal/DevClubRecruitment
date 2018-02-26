@@ -19,11 +19,11 @@
         {{ course.name }}
         {% endif %}
     </h3>
-    <br/>
-    {{course.owner}}
-    <br/>
-        <a href="{% url 'spinge:course_detail' course.id %}"> Details </a>
-    <br/>
+    <ul>
+        <li> Professor : {{course.owner}}</li>
+        <li> Details :  <a href="{% url 'spinge:course_detail' course.id %}"> Click Here </a></li>
+    </ul>
+    </br>
     {% endfor %}
 {% else %}
 	<div class='alert alert-warning' align='center'>

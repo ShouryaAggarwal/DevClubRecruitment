@@ -10,26 +10,24 @@
 
 <div class='col-md-12' style="background-color: #eeeeee; padding: 15px; border-radius: 15px;">
 	<h3 class="page-header">
-        {{course.owner}}
+        Coordinating Professor : {{course.owner}}
 	</h3>
-    <h3> About : </h3>
-    <p> {{course.about}}</p>
-    <p> Number of students registered : {{course.students.all.count}}</p>
-
+    <h4> About : {{course.about}}</h4>
+    <h4> Number of students registered : {{course.students.all.count}}</h4>
+    <h4> Floated On : {{course.timestamp}}</h4>
+    {% if user == course.owner %}
+	<h3><a href="{% url 'spinge:add_note' course.id %}">Add A New Note !!</a></h3>
+    {% endif %}
+    {% if check == 1 or user == course.owner %}
+    <h3><a href="{% url 'spinge:notes_view' course.id %}">View Course Notes !!</a></h3>
+    {% endif %}
     {% if user.profile.is_student %}
+    <br/>
     <form action="{% url 'spinge:join_course' course.id %}" method="post">
     {% csrf_token %}
     <input type="submit" class="btn-success" style="padding:5px; font-size:20px;" value="Join Course !!" />
     </form>
     {% endif %}
-
-    {% if user == course.owner %}
-		<a href="{% url 'spinge:add_note' course.id %}">Add A New Note !!</a>
-    {% endif %}
-    <br/>
-	    {% if check == 1 or user == course.owner %}
-        <a href="{% url 'spinge:notes_view' course.id %}">View Course Notes !!</a>
-        {% endif %}
 </div>
 
 {% endblock body %}
