@@ -1,1 +1,1 @@
-web: gunicorn Spinge.wsgi --preload --log-file -
+web: gunicorn ProtoSite.wsgi --preload --log-file -
