@@ -21,13 +21,21 @@
     {% if check == 1 or user == course.owner %}
     <h3><a href="{% url 'spinge:notes_view' course.id %}">View Course Notes !!</a></h3>
     {% endif %}
-    {% if user.profile.is_student %}
+    {% if user.profile.is_student and not check == 1 %}
     <br/>
     <form action="{% url 'spinge:join_course' course.id %}" method="post">
     {% csrf_token %}
     <input type="submit" class="btn-success" style="padding:5px; font-size:20px;" value="Join Course !!" />
     </form>
     {% endif %}
+
+    {% if check == 1 %}
+	<form action="{% url 'spinge:drop_course' course.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" class="btn-success" style="padding:5px; font-size:20px;" value="Drop Course !!" />
+    </form>
+    {% endif %}
+
 </div>
 
 {% endblock body %}
