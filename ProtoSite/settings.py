@@ -25,7 +25,13 @@ SECRET_KEY = '@)9^i1#t#r_rs&&ud1gk4_r4y*34$*k#h9!bk^-&6y^t9=kf2u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'www.spinge.herokuapp.com',
+    'https://spinge.herokuapp.com',
+    'spinge.herokuapp.com',
+    'http://127.0.0.1',
+    '127.0.0.1',
+]
 
 
 # Application definition
